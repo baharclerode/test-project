@@ -44,12 +44,12 @@ node("docker") {
                 }
 
                 // Get Git Information
-                def gitUrl = sh(returnStdout: true, script: 'git remote show origin').trim()
-                def gitSha1 = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                 def gitAuthor = "${env.CHANGE_AUTHOR ? env.CHANGE_AUTHOR : sh(returnStdout: true, script: 'git log -1 --format="%aN" HEAD').trim()}"
                 def gitAuthorEmail = "${env.CHANGE_AUTHOR_EMAIL ? env.CHANGE_AUTHOR_EMAIL : sh(returnStdout: true, script: 'git log -1 --format="%aE" HEAD').trim()}"
                 sh "git config --global user.name ${gitAuthor}"
                 sh "git config --global user.email ${gitAuthorEmail}"
+                def gitUrl = sh(returnStdout: true, script: 'git remote show origin').trim()
+                def gitSha1 = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                 def gitInfo = (gitUrl =~ '.*/([^/]+)/([^/]+).git')[0]
                 def gitOrg = gitInfo[1]
                 def gitRepo = gitInfo[2]
@@ -81,16 +81,7 @@ node("docker") {
                         archiveArtifacts 'target/checkout/**/target/*.jar'
 
                         if (isDeployableBranch) {
-                            try {
-                                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: scm.userRemoteConfigs[0].credentialsId, usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-                                    sh("git config credential.username ${env.GIT_USERNAME}")
-                                    sh("git config credential.helper '!echo password=\$GIT_PASSWORD; echo'")
-                                    sh("GIT_ASKPASS=true git push origin ${tag}")
-                                }
-                            } finally {
-                                sh("git config --unset credential.username")
-                                sh("git config --unset credential.helper")
-                            }
+                            sh("git push origin ${tag}")
                         }
                     } finally {
                         junit allowEmptyResults: !requireTests, testResults: "target/checkout/**/target/surefire-reports/TEST-*.xml"
