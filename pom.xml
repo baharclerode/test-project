@@ -10,27 +10,27 @@
         <version>1.0.42-c78f88</version>
     </parent>
 
-    <groupId>zone.dragon.dropwizard</groupId>
-    <artifactId>dropwizard-async</artifactId>
+    <groupId>zone.dragon.testing</groupId>
+    <artifactId>test-project</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Async Support for Dropwizard</name>
+    <name>Test Project for testing build server/release process changes</name>
     <description>
-        Enables the use of CompletionStage and CompletableFuture as return types from resource methods
+        Tests changes in the release process
     </description>
-    <url>https://code.dragon.zone/dragonzone/dropwizard-async</url>
+    <url>https://code.dragon.zone/dragonzone/test-project</url>
 
     <scm>
-        <connection>scm:git:http://code.dragon.zone/dragonzone/dropwizard-async.git</connection>
-        <developerConnection>scm:git:ssh://git@code.dragon.zone:dragonzone/dropwizard-async.git</developerConnection>
-        <url>https://code.dragon.zone/dragonzone/dropwizard-async/tree/master</url>
+        <connection>scm:git:http://code.dragon.zone/dragonzone/test-project.git</connection>
+        <developerConnection>scm:git:ssh://git@code.dragon.zone:dragonzone/test-project.git</developerConnection>
+        <url>https://code.dragon.zone/dragonzone/test-project/tree/master</url>
         <tag>HEAD</tag>
     </scm>
 
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>https://code.dragon.zone/dragonzone/dropwizard-async/blob/master/LICENSE</url>
+            <url>https://code.dragon.zone/dragonzone/test-project/blob/master/LICENSE</url>
         </license>
     </licenses>
 
