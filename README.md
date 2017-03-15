@@ -1,3 +1,7 @@
+# Test Project
+
+This project is used for testing various build and release process changes.
+
 # DropWizard Async Support
 
 This bundle adds support for resources methods to return `CompletionStage`. The methods will be automatically converted to asynchronous
