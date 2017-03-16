@@ -79,9 +79,8 @@ node("docker") {
                             sh "mvn ${mavenArgs} release:perform -DlocalCheckout=true -Dgoals=\"${isDeployableBranch ? mavenDeployGoals : mavenNonDeployGoals}\" -Darguments=\"${mavenArgs} ${isDeployableBranch ? mavenDeployArgs : mavenNonDeployArgs} -Dgpg.defaultKeyring=false -Dgpg.keyname=$GPG_KEYNAME -Dgpg.publicKeyring=$GPG_PUBRING -Dgpg.secretKeyring=$GPG_SECRING\""
                         }
                         archiveArtifacts 'target/checkout/**/target/*.jar'
-                        def stagingDir = new File(env.WORKSPACE, 'target/checkout/target/nexus-staging/staging/')
-                        def propFile = stagingDir.listFiles({ -> !it.isDirectory() })[0] 
-                        echo "Prop File is ${propFile.absolutePath}"
+                        def propFile = 'target/checkout/target/nexus-staging/staging/' + sh(returnStdout: true, script: 'ls target/checkout/target/nexus-staging/staging/ | grep properties | head -n 1').trim() 
+                        echo "Prop File is ${propFile}"
                         if (isDeployableBranch) {
                             sh("git push origin ${tag}")
                         }
