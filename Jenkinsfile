@@ -79,7 +79,8 @@ node("docker") {
                             sh "mvn ${mavenArgs} release:perform -DlocalCheckout=true -Dgoals=\"${isDeployableBranch ? mavenDeployGoals : mavenNonDeployGoals}\" -Darguments=\"${mavenArgs} ${isDeployableBranch ? mavenDeployArgs : mavenNonDeployArgs} -Dgpg.defaultKeyring=false -Dgpg.keyname=$GPG_KEYNAME -Dgpg.publicKeyring=$GPG_PUBRING -Dgpg.secretKeyring=$GPG_SECRING\""
                         }
                         archiveArtifacts 'target/checkout/**/target/*.jar'
-
+                        def stagingPropFile = new FileNameFinder().getFileNames(env.WORKSPACE, 'target/checkout/target/nexus-staging/staging/*/*.properties')[0]
+                        echo "Prop File is ${stagingPropFile}"
                         if (isDeployableBranch) {
                             sh("git push origin ${tag}")
                         }
