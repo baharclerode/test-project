@@ -46,8 +46,8 @@ node("docker") {
                 // Get Git Information
                 def gitAuthor = "${env.CHANGE_AUTHOR ? env.CHANGE_AUTHOR : sh(returnStdout: true, script: 'git log -1 --format="%aN" HEAD').trim()}"
                 def gitAuthorEmail = "${env.CHANGE_AUTHOR_EMAIL ? env.CHANGE_AUTHOR_EMAIL : sh(returnStdout: true, script: 'git log -1 --format="%aE" HEAD').trim()}"
-                sh "git config --global user.name ${gitAuthor}"
-                sh "git config --global user.email ${gitAuthorEmail}"
+                sh "git config user.name ${gitAuthor}"
+                sh "git config user.email ${gitAuthorEmail}"
                 def gitUrl = sh(returnStdout: true, script: 'git config --get remote.origin.url').trim()
                 def gitSha1 = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                 def gitInfo = (gitUrl =~ '.*:([^/]+)/([^/]+).git')[0]
@@ -82,6 +82,7 @@ node("docker") {
                         def propFile = 'target/checkout/target/nexus-staging/staging/' + sh(returnStdout: true, script: 'ls target/checkout/target/nexus-staging/staging/ | grep properties | head -n 1').trim() 
                         echo "Prop File is ${propFile}"
                         if (isDeployableBranch) {
+                            echo "${sh(returnStdout: true, script: 'cat /etc/passwd').trim()}"
                             sh("git push origin ${tag}")
                         }
                     } finally {
