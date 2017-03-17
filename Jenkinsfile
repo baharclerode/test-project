@@ -31,7 +31,7 @@ node("docker") {
         buildEnv.pull()
     }
 
-    buildEnv.inside["-v /etc/passwd:/etc/passwd"] {
+    buildEnv.inside("-v /etc/passwd:/etc/passwd") {
         withEnv(["HOME=${env.WORKSPACE}"]) {
             withMaven(globalMavenSettingsConfig: globalMavenSettingsConfig) {
                 /*
