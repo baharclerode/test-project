@@ -46,8 +46,8 @@ node("docker") {
                 // Get Git Information
                 def gitAuthor = "${env.CHANGE_AUTHOR ? env.CHANGE_AUTHOR : sh(returnStdout: true, script: 'git log -1 --format="%aN" HEAD').trim()}"
                 def gitAuthorEmail = "${env.CHANGE_AUTHOR_EMAIL ? env.CHANGE_AUTHOR_EMAIL : sh(returnStdout: true, script: 'git log -1 --format="%aE" HEAD').trim()}"
-                sh "git config user.name ${gitAuthor}"
-                sh "git config user.email ${gitAuthorEmail}"
+                sh "git config --global user.name ${gitAuthor}"
+                sh "git config --global user.email ${gitAuthorEmail}"
                 def gitUrl = sh(returnStdout: true, script: 'git config --get remote.origin.url').trim()
                 def gitSha1 = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                 def gitInfo = (gitUrl =~ '.*:([^/]+)/([^/]+).git')[0]
