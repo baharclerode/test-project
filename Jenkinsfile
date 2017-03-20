@@ -1,7 +1,7 @@
 #!Jenkinsfile
 
 // Project Config
-def buildEnvironmentImage = "docker.dragon.zone:10080/baharclerode/maven-build:3.3.9-jdk-8-9"
+def buildEnvironmentImage = "docker.dragon.zone/baharclerode/maven-build:3.3.9-jdk-8-9"
 def buildableBranchRegex = ".*" // ( PRs are in the form 'PR-\d+' )
 def deployableBranchRegex = "master"
 
@@ -84,7 +84,9 @@ node("docker") {
                         if (isDeployableBranch) {
                             echo "${sh(returnStdout: true, script: 'cat /etc/passwd').trim()}"
                             echo "SSH: ${env.GIT_SSH}"
-                            sh("git push origin ${tag}")
+                            sshagent("github-baharclerode-ssh") {
+                                sh("git push origin ${tag}")
+                            }
                         }
                     } finally {
                         junit allowEmptyResults: !requireTests, testResults: "target/checkout/**/target/surefire-reports/TEST-*.xml"
