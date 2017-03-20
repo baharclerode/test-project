@@ -84,7 +84,7 @@ node("docker") {
                         if (isDeployableBranch) {
                             echo "${sh(returnStdout: true, script: 'cat /etc/passwd').trim()}"
                             echo "SSH: ${env.GIT_SSH}"
-                            sshagent("github-baharclerode-ssh") {
+                            sshagent(["github-baharclerode-ssh"]) {
                                 sh("git push origin ${tag}")
                             }
                         }
