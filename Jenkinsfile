@@ -83,6 +83,7 @@ node("docker") {
                         echo "Prop File is ${propFile}"
                         if (isDeployableBranch) {
                             echo "${sh(returnStdout: true, script: 'cat /etc/passwd').trim()}"
+                            echo "SSH: ${env.GIT_SSH}"
                             sh("git push origin ${tag}")
                         }
                     } finally {
