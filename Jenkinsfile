@@ -23,7 +23,7 @@ if (!env.BRANCH_NAME.matches(buildableBranchRegex)) {
 
 // Pipeline Definition
 node("docker") {
-    docker.withRegistry("docker.dragon.zone", "jenkins-nexus") {
+    docker.withRegistry("https://docker.dragon.zone", "jenkins-nexus") {
         // Prepare the docker image to be used as a build environment
         def buildEnv = docker.image(buildEnvironmentImage)
         def isDeployableBranch = env.BRANCH_NAME.matches(deployableBranchRegex)
