@@ -1,7 +1,7 @@
 #!Jenkinsfile
 
 // Project Config
-def buildEnvironmentImage = "baharclerode/maven-build:3.3.9-jdk-8-3"
+def buildEnvironmentImage = "docker.dragon.zone:10080/baharclerode/maven-build:3.3.9-jdk-8-8"
 def buildableBranchRegex = ".*" // ( PRs are in the form 'PR-\d+' )
 def deployableBranchRegex = "master"
 
