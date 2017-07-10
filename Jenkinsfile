@@ -3,9 +3,9 @@
 testVar {
     echo "Test"
     
-    preBuild {
-        echo "Prebuild"
-    }
+    //preBuild {
+   //     echo "Prebuild"
+    //}
     
     someValue = "someValue"
 }
