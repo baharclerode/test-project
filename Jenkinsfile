@@ -1,6 +1,8 @@
 #!Jenkinsfile
 
-testVar()
+testVar {
+    echo "Test"
+}
 
 // Project Config
 def buildEnvironmentImage = "docker.dragon.zone/baharclerode/maven-build:3.3.9-jdk-8-9"
