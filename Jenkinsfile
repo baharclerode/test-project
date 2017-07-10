@@ -2,6 +2,12 @@
 
 testVar {
     echo "Test"
+    
+    preBuild {
+        echo "Prebuild"
+    }
+    
+    someValue = "someValue"
 }
 
 // Project Config
