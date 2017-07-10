@@ -1,7 +1,7 @@
 #!Jenkinsfile
 
 testVar {
-    echo "Test"
+    //echo "Test"
     
     //preBuild {
    //     echo "Prebuild"
